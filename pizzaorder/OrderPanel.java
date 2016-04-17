@@ -2,9 +2,12 @@ package pizzaorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -31,6 +34,7 @@ public class OrderPanel extends JPanel
     private JTable invoice;
     private DefaultTableModel model;
     private JPanel options;
+    private PizzaPanel pizzaPanel;
     private JRadioButton[] sizeBoxes;
     private JCheckBox[] toppingBoxes;
 
@@ -40,7 +44,7 @@ public class OrderPanel extends JPanel
      *============================================================================================*
      **********************************************************************************************/
 
-    public OrderPanel()
+    public OrderPanel() throws IOException
     {
         pizza = new Pizza();
 
@@ -70,42 +74,45 @@ public class OrderPanel extends JPanel
         options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
 
         JLabel sizeLabel = new JLabel("Select a Size:", SwingConstants.CENTER);
-        sizeLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        sizeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         sizeBoxes = new JRadioButton[Pizza.Size.values().length];
 
-        JPanel sizesPanel = new JPanel();
         ButtonGroup sizeGroup = new ButtonGroup();
         sizeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        options.add(sizeLabel);
         for (int i = 0; i < sizeBoxes.length; i++)
         {
             sizeBoxes[i] = new JRadioButton(Pizza.Size.values()[i].name());
-            sizesPanel.add(sizeBoxes[i]);
+            options.add(sizeBoxes[i]);
             sizeGroup.add(sizeBoxes[i]);
             sizeBoxes[i].addActionListener(new SizeListener());
         }
         sizeBoxes[1].setSelected(true);
-        options.add(sizeLabel);
-        options.add(sizesPanel);
 
-        JPanel toppingsPanel = new JPanel();
         toppingBoxes         = new JCheckBox[Pizza.Topping.values().length];
         JLabel toppingsLabel = new JLabel("Select Toppings:", SwingConstants.CENTER);
-        toppingsLabel.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        toppingsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         toppingsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        options.add(toppingsLabel);
         for (int i = 0; i < toppingBoxes.length; i++)
         {
             toppingBoxes[i] = new JCheckBox(Pizza.Topping.values()[i].name());
-            toppingsPanel.add(toppingBoxes[i]);
+            options.add(toppingBoxes[i]);
             toppingBoxes[i].addActionListener(new ToppingsListener());
         }
-        options.add(toppingsLabel);
-        options.add(toppingsPanel);
+
+        options.setPreferredSize(new Dimension(175, 350));
+
+        //Set up pizza panel
+        pizzaPanel = new PizzaPanel(pizza);
+
 
         //Add components to main panel
         add(title, BorderLayout.NORTH);
-        add(options, BorderLayout.CENTER);
+        add(options, BorderLayout.WEST);
         add(invoice, BorderLayout.EAST);
+        add(pizzaPanel, BorderLayout.CENTER);
     }
 
 
@@ -182,6 +189,7 @@ public class OrderPanel extends JPanel
             String[] data = { topping.name(), String.format("$%5.2f", Pizza.TOPPING_PRICE) };
             invoice.setValueAt(String.format("$%5.2f", pizza.price()), model.getRowCount() - 1, 1);
             model.insertRow(model.getRowCount() - 1, data);
+            pizzaPanel.repaint();
         }
 
         private void removeTopping(Pizza.Topping topping, int row)
@@ -189,6 +197,7 @@ public class OrderPanel extends JPanel
             pizza.removeTopping(topping);
             invoice.setValueAt(String.format("$%5.2f", pizza.price()), model.getRowCount() - 1, 1);
             removeRow(topping.name());
+            pizzaPanel.repaint();
         }
 
         private void removeRow(String topping)

@@ -90,6 +90,11 @@ public class Pizza
         return toppings.remove(topping);
     }
 
+    public ArrayList<Topping> getToppings()
+    {
+        return toppings;
+    }
+
     public void setSize(Size size)
     {
         price     -= this.size.price();

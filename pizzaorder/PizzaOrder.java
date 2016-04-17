@@ -1,6 +1,7 @@
 package pizzaorder;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import javax.swing.JFrame;
 
 public class PizzaOrder {
@@ -12,7 +13,7 @@ public class PizzaOrder {
      * Course/Section : CSC264 - 001
      * Program Description: This method creates and launches the GUI frame.
      **********************************************************************************************/
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         //Create frame
         JFrame frame = new JFrame("Terry's Pizzas");
@@ -23,8 +24,7 @@ public class PizzaOrder {
         frame.getContentPane().add(panel);
 
         //Display frame
-        frame.setPreferredSize(new Dimension(450, 240));
-        frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(650, 400));
         frame.pack();
         frame.setVisible(true);
 
