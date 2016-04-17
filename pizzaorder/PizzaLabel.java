@@ -6,15 +6,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-public class PizzaPanel extends JPanel
+public class PizzaLabel extends JLabel
 {
     private Pizza pizza;
     private BufferedImage pizzaImage;
     private BufferedImage[] toppingImages;
 
-    public PizzaPanel(Pizza pizza) throws IOException
+    public PizzaLabel(Pizza pizza) throws IOException
     {
         this.pizza = pizza;
         Pizza.Topping[] toppings = Pizza.Topping.values();

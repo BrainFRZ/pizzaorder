@@ -24,7 +24,9 @@ public class PizzaOrder {
         frame.getContentPane().add(panel);
 
         //Display frame
-        frame.setPreferredSize(new Dimension(650, 400));
+        Dimension minSize = new Dimension(650, 375);
+        frame.setPreferredSize(minSize);
+        frame.setMinimumSize(minSize);
         frame.pack();
         frame.setVisible(true);
 

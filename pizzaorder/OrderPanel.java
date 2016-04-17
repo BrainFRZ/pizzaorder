@@ -2,7 +2,6 @@ package pizzaorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,8 @@ public class OrderPanel extends JPanel
     private JTable invoice;
     private DefaultTableModel model;
     private JPanel options;
-    private PizzaPanel pizzaPanel;
+    private JPanel pizzaPanel;
+    private PizzaLabel pizzaLabel;
     private JRadioButton[] sizeBoxes;
     private JCheckBox[] toppingBoxes;
 
@@ -74,7 +74,7 @@ public class OrderPanel extends JPanel
         options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
 
         JLabel sizeLabel = new JLabel("Select a Size:", SwingConstants.CENTER);
-        sizeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        sizeLabel.setAlignmentX(CENTER_ALIGNMENT);
         sizeBoxes = new JRadioButton[Pizza.Size.values().length];
 
         ButtonGroup sizeGroup = new ButtonGroup();
@@ -91,7 +91,7 @@ public class OrderPanel extends JPanel
 
         toppingBoxes         = new JCheckBox[Pizza.Topping.values().length];
         JLabel toppingsLabel = new JLabel("Select Toppings:", SwingConstants.CENTER);
-        toppingsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        toppingsLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         toppingsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         options.add(toppingsLabel);
@@ -105,7 +105,12 @@ public class OrderPanel extends JPanel
         options.setPreferredSize(new Dimension(175, 350));
 
         //Set up pizza panel
-        pizzaPanel = new PizzaPanel(pizza);
+        pizzaPanel = new JPanel();
+        pizzaLabel = new PizzaLabel(pizza);
+        pizzaLabel.setAlignmentX(CENTER_ALIGNMENT);
+        pizzaLabel.setAlignmentY(CENTER_ALIGNMENT);
+        pizzaLabel.setPreferredSize(new Dimension(300, 300));
+        pizzaPanel.add(pizzaLabel);
 
 
         //Add components to main panel
