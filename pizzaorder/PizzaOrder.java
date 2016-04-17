@@ -6,13 +6,6 @@ import javax.swing.JFrame;
 
 public class PizzaOrder {
 
-    /**********************************************************************************************
-     * Method Name    : OlympicsScores - Main
-     * Author         : Terry Weiss
-     * Date           : April 8, 2016
-     * Course/Section : CSC264 - 001
-     * Program Description: This method creates and launches the GUI frame.
-     **********************************************************************************************/
     public static void main(String[] args) throws IOException
     {
         //Create frame

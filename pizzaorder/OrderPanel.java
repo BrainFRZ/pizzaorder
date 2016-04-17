@@ -55,7 +55,7 @@ public class OrderPanel extends JPanel
 
         //Set up invoice
         String[] columns = { "Item", "Price" };
-        Object[][] data  = new Object[2][2];    //[Pizza size + number of toppings][Columns]
+        Object[][] data  = new Object[2][2];    //[Pizza size, toppings, and total][Item and price]
         data[0][0] = pizza.size().toString();
         data[0][1] = String.format("$%4.2f", pizza.size().price());
         data[data.length - 1][0] = "Total:";
@@ -156,26 +156,26 @@ public class OrderPanel extends JPanel
             Object source = e.getSource();
 
             if (source == toppingBoxes[0])
-                toggleTopping(0);
-            else if (source == toppingBoxes[1])
                 toggleTopping(1);
-            else if (source == toppingBoxes[2])
+            else if (source == toppingBoxes[1])
                 toggleTopping(2);
-            else if (source == toppingBoxes[3])
+            else if (source == toppingBoxes[2])
                 toggleTopping(3);
-            else if (source == toppingBoxes[4])
+            else if (source == toppingBoxes[3])
                 toggleTopping(4);
+            else if (source == toppingBoxes[4])
+                toggleTopping(5);
         }
 
         private void toggleTopping(int tableRow)
         {
-            if (toppingBoxes[tableRow].isSelected())
-                addTopping(toppings[tableRow]);
+            if (toppingBoxes[tableRow - 1].isSelected())
+                addTopping(toppings[tableRow - 1], tableRow);
             else
-                removeTopping(toppings[tableRow]);
+                removeTopping(toppings[tableRow - 1], tableRow);
         }
 
-        private void addTopping(Pizza.Topping topping)
+        private void addTopping(Pizza.Topping topping, int tableRow)
         {
             pizza.addTopping(topping);
             String[] data = { topping.name(), String.format("$%5.2f", Pizza.TOPPING_PRICE) };
@@ -184,7 +184,7 @@ public class OrderPanel extends JPanel
             pizzaPanel.repaint();
         }
 
-        private void removeTopping(Pizza.Topping topping)
+        private void removeTopping(Pizza.Topping topping, int tableRow)
         {
             pizza.removeTopping(topping);
             invoice.setValueAt(String.format("$%5.2f", pizza.price()), model.getRowCount() - 1, 1);
