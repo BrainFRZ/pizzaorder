@@ -1,18 +1,18 @@
-/**************************************************************************************************
- * Program Name   :
- * Author         : Terry Weiss
- * Date           : Apr 15, 2016
- * Course/Section :
- * Program Description:
- **************************************************************************************************/
-
 package pizzaorder;
 
 import java.util.ArrayList;
 
 public class Pizza
 {
-    public static enum Topping { Pepperoni, Sausage, Olives, Bacon, Peppers };
+    public static enum Topping
+    {
+        Pepperoni, Sausage, Olives, Bacon, Peppers;
+
+        public String filename()
+        {
+            return "pics/" + this.name() + ".png";
+        }
+    };
 
     public static enum Size
     {

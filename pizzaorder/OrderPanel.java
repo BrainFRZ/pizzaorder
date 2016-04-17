@@ -1,27 +1,19 @@
-/**************************************************************************************************
- * Program Name   :
- * Author         : Terry Weiss
- * Date           : Apr 15, 2016
- * Course/Section :
- * Program Description:
- **************************************************************************************************/
-
 package pizzaorder;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 public class OrderPanel extends JPanel
 {

@@ -1,11 +1,3 @@
-/**************************************************************************************************
- * Program Name   :
- * Author         : Terry Weiss
- * Date           : Apr 15, 2016
- * Course/Section :
- * Program Description:
- **************************************************************************************************/
-
 package pizzaorder;
 
 import java.awt.Dimension;
