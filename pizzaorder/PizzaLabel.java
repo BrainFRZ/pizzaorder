@@ -10,15 +10,20 @@ import javax.swing.JLabel;
 
 public class PizzaLabel extends JLabel
 {
-    private Pizza pizza;
-    private BufferedImage pizzaImage;
-    private BufferedImage[] toppingImages;
+    private final Pizza pizza;
+    private static BufferedImage pizzaImage;
+    private static BufferedImage[] toppingImages;
 
     public PizzaLabel(Pizza pizza) throws IOException
     {
         this.pizza = pizza;
-        Pizza.Topping[] toppings = Pizza.Topping.values();
+        if (pizzaImage == null)
+            loadImages();
+    }
 
+    private static void loadImages() throws IOException
+    {
+        Pizza.Topping[] toppings = Pizza.Topping.values();
         pizzaImage = ImageIO.read(new File("pics/Pizza.png"));
         toppingImages = new BufferedImage[toppings.length];
         for (int i = 0; i < toppings.length; i++)
@@ -35,16 +40,6 @@ public class PizzaLabel extends JLabel
         page2D.drawImage(pizzaImage, null, 0, 0);
 
         for (Pizza.Topping topping : pizza.getToppings())
-        {
-            try
-            {
-                BufferedImage image = ImageIO.read(new File(topping.filename()));
-                page2D.drawImage(image, null, 0, 0);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
+            page2D.drawImage(toppingImages[topping.ordinal()], null, 0, 0);
     }
 }
