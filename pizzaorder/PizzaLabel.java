@@ -23,8 +23,8 @@ public class PizzaLabel extends JLabel
 
     private static void loadImages() throws IOException
     {
-        Pizza.Topping[] toppings = Pizza.Topping.values();
         pizzaImage = ImageIO.read(new File("pics/Pizza.png"));
+        Pizza.Topping[] toppings = Pizza.Topping.values();
         toppingImages = new BufferedImage[toppings.length];
         for (int i = 0; i < toppings.length; i++)
             toppingImages[i] = ImageIO.read(new File(toppings[i].filename()));
@@ -34,9 +34,9 @@ public class PizzaLabel extends JLabel
     @Override
     public void paintComponent(Graphics page)
     {
-        Graphics2D page2D = (Graphics2D)page;
-
         super.paintComponent(page);
+
+        Graphics2D page2D = (Graphics2D)page;
         page2D.drawImage(pizzaImage, null, 0, 0);
 
         for (Pizza.Topping topping : pizza.getToppings())

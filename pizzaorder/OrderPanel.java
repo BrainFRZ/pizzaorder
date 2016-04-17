@@ -148,47 +148,34 @@ public class OrderPanel extends JPanel
 
     private class ToppingsListener implements ActionListener
     {
+        private final Pizza.Topping[] toppings = Pizza.Topping.values();
+
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (e.getSource() == toppingBoxes[0])
-            {
-                if (toppingBoxes[0].isSelected())
-                    addTopping(Pizza.Topping.values()[0], 1);
-                else
-                    removeTopping(Pizza.Topping.values()[0], 1);
-            }
-            else if (e.getSource() == toppingBoxes[1])
-            {
-                if (toppingBoxes[1].isSelected())
-                    addTopping(Pizza.Topping.values()[1], 2);
-                else
-                    removeTopping(Pizza.Topping.values()[1], 2);
-            }
-            else if (e.getSource() == toppingBoxes[2])
-            {
-                if (toppingBoxes[2].isSelected())
-                    addTopping(Pizza.Topping.values()[2], 3);
-                else
-                    removeTopping(Pizza.Topping.values()[2], 3);
-            }
-            else if (e.getSource() == toppingBoxes[3])
-            {
-                if (toppingBoxes[3].isSelected())
-                    addTopping(Pizza.Topping.values()[3], 4);
-                else
-                    removeTopping(Pizza.Topping.values()[3], 4);
-            }
-            else if (e.getSource() == toppingBoxes[4])
-            {
-                if (toppingBoxes[4].isSelected())
-                    addTopping(Pizza.Topping.values()[4], 5);
-                else
-                    removeTopping(Pizza.Topping.values()[4], 5);
-            }
+            Object source = e.getSource();
+
+            if (source == toppingBoxes[0])
+                toggleTopping(0);
+            else if (source == toppingBoxes[1])
+                toggleTopping(1);
+            else if (source == toppingBoxes[2])
+                toggleTopping(2);
+            else if (source == toppingBoxes[3])
+                toggleTopping(3);
+            else if (source == toppingBoxes[4])
+                toggleTopping(4);
         }
 
-        private void addTopping(Pizza.Topping topping, int row)
+        private void toggleTopping(int tableRow)
+        {
+            if (toppingBoxes[tableRow].isSelected())
+                addTopping(toppings[tableRow]);
+            else
+                removeTopping(toppings[tableRow]);
+        }
+
+        private void addTopping(Pizza.Topping topping)
         {
             pizza.addTopping(topping);
             String[] data = { topping.name(), String.format("$%5.2f", Pizza.TOPPING_PRICE) };
@@ -197,7 +184,7 @@ public class OrderPanel extends JPanel
             pizzaPanel.repaint();
         }
 
-        private void removeTopping(Pizza.Topping topping, int row)
+        private void removeTopping(Pizza.Topping topping)
         {
             pizza.removeTopping(topping);
             invoice.setValueAt(String.format("$%5.2f", pizza.price()), model.getRowCount() - 1, 1);
