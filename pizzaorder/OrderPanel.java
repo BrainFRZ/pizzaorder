@@ -27,6 +27,7 @@ public class OrderPanel extends JPanel
 
     //Class constants
     private Pizza pizza;
+    private final static Pizza.Topping[] TOPPINGS = Pizza.Topping.values();
 
     //Instance data
     private static JLabel title;
@@ -75,21 +76,22 @@ public class OrderPanel extends JPanel
 
         JLabel sizeLabel = new JLabel("Select a Size:", SwingConstants.CENTER);
         sizeLabel.setAlignmentX(CENTER_ALIGNMENT);
-        sizeBoxes = new JRadioButton[Pizza.Size.values().length];
+        final Pizza.Size[] SIZES = Pizza.Size.values();
+        sizeBoxes = new JRadioButton[SIZES.length];
 
         ButtonGroup sizeGroup = new ButtonGroup();
         sizeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         options.add(sizeLabel);
         for (int i = 0; i < sizeBoxes.length; i++)
         {
-            sizeBoxes[i] = new JRadioButton(Pizza.Size.values()[i].name());
+            sizeBoxes[i] = new JRadioButton(SIZES[i].name());
             options.add(sizeBoxes[i]);
             sizeGroup.add(sizeBoxes[i]);
             sizeBoxes[i].addActionListener(new SizeListener());
         }
         sizeBoxes[1].setSelected(true);
 
-        toppingBoxes         = new JCheckBox[Pizza.Topping.values().length];
+        toppingBoxes         = new JCheckBox[TOPPINGS.length];
         JLabel toppingsLabel = new JLabel("Select Toppings:", SwingConstants.CENTER);
         toppingsLabel.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -97,7 +99,7 @@ public class OrderPanel extends JPanel
         options.add(toppingsLabel);
         for (int i = 0; i < toppingBoxes.length; i++)
         {
-            toppingBoxes[i] = new JCheckBox(Pizza.Topping.values()[i].name());
+            toppingBoxes[i] = new JCheckBox(TOPPINGS[i].name());
             options.add(toppingBoxes[i]);
             toppingBoxes[i].addActionListener(new ToppingsListener());
         }
@@ -148,8 +150,6 @@ public class OrderPanel extends JPanel
 
     private class ToppingsListener implements ActionListener
     {
-        private final Pizza.Topping[] toppings = Pizza.Topping.values();
-
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -170,9 +170,9 @@ public class OrderPanel extends JPanel
         private void toggleTopping(int tableRow)
         {
             if (toppingBoxes[tableRow - 1].isSelected())
-                addTopping(toppings[tableRow - 1], tableRow);
+                addTopping(TOPPINGS[tableRow - 1], tableRow);
             else
-                removeTopping(toppings[tableRow - 1], tableRow);
+                removeTopping(TOPPINGS[tableRow - 1], tableRow);
         }
 
         private void addTopping(Pizza.Topping topping, int tableRow)
