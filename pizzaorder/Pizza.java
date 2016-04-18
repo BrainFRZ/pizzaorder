@@ -67,6 +67,13 @@ public class Pizza
         this(DEFAULT_SIZE);
     }
 
+    /**
+     * Adds the given topping. If adding pepperoni, it will always be placed at the bottom, and
+     * sausage will always be moved on top.
+     *
+     * @param topping Topping to be added
+     * @return True if topping was added successfully
+     */
     public boolean addTopping(Topping topping)
     {
         boolean added = true;
@@ -74,7 +81,15 @@ public class Pizza
         if (!toppings.contains(topping))
         {
             price += TOPPING_PRICE;
-            toppings.add(topping);
+            if (topping == Topping.Pepperoni)
+                toppings.add(0, topping);
+            else
+                toppings.add(topping);
+            if (toppings.contains(Topping.Sausage))
+            {
+                toppings.remove(Topping.Sausage);
+                toppings.add(Topping.Sausage);
+            }
         }
         else
             added = false;
